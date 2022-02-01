@@ -31,14 +31,11 @@ const app = Vue.createApp( {
     <button v-on:click="increment()">Increment</button>
     <p>{{count}}</p>
 
-   
-
     <input 
      type="checkbox"
      v-model="value" 
      value="a"
     />
-    <!-- NOTE v-model을 사용하여 아래의 data() section의 value와 결함 -->
     <input 
      type="checkbox"
      v-model="value"
@@ -51,11 +48,12 @@ const app = Vue.createApp( {
       {{ error }}
     </div>
     
-    <div 
+    
+    <num 
       v-for="number in numbers"
-    >
-      <num v-bind:number="number" />
-    </div>
+      v-bind:number="number" 
+    />
+    <!-- div 속에 있던 v-for 마저 num component 내부로 이동 -->
   `,
 
   data () {
