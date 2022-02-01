@@ -4,11 +4,17 @@ const app = Vue.createApp( {
   template: `
     <button v-on:click="increment()">Increment</button>
     <p>{{count}}</p>
+    <input 
+     v-bind:value="value" 
+     v-on:input="input"
+    />
+    {{value}}
+    <!-- SPEC v-bind:value="value"처럼 v-bind를 사용하여 data() section에 지정한 value: 'user'를 결합(binding)시킨다.  -->
+    
     <div 
       v-for="number in numbers"
       v-bind:class="getClass(number)"
     >
-    <!-- SPEC methods: section에 getClass()를 따로 정의하여 사용 -->
       <div>
       {{number}} 
       
@@ -21,7 +27,9 @@ const app = Vue.createApp( {
   data () {
     return {
       count: 0,
-      numbers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+      value: 'user',
+      numbers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
+      error: ''
     };
   },
 
@@ -30,6 +38,12 @@ const app = Vue.createApp( {
   // SPEC computed
 
   methods: {
+    input ( $event ) {
+      this.value = $event.target.value;
+      if ( this.value.length < 5 ) {
+        this.error = 'Must be greater than 5.'
+      }
+    },
     getClass ( number ) {
       return this.isEven( number ) ? 'blue' : 'red';
     },
