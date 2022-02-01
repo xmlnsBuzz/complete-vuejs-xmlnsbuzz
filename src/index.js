@@ -1,9 +1,22 @@
 import * as Vue from 'vue/dist/vue.esm-bundler.js';
 
+const Hello = {
+  template: `
+  <p>Hello!</p>
+`
+}
+
 const app = Vue.createApp( {
+  components: {
+    Hello
+  },
+  
   template: `
     <button v-on:click="increment()">Increment</button>
     <p>{{count}}</p>
+
+    <hello />
+
     <input 
      type="checkbox"
      v-model="value" 
