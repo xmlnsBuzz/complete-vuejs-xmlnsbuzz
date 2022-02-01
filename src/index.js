@@ -4,15 +4,10 @@ const app = Vue.createApp( {
   template: `
     <button v-on:click="increment()">Increment</button>
     <p>{{count}}</p>
-    <div v-for="number in numbers">
+    <div v-for="number in evenList">
       <div>
       {{number}} 
-      <span v-if="isEven(number)">
-        Even
-      </span>
-      <span v-else>
-        Odd
-      </span>
+      
       
       </div>
     </div>
@@ -26,16 +21,28 @@ const app = Vue.createApp( {
     };
   },
 
+  // SPEC SFC - Single File Component
+  // SPEC v-model
+  // SPEC computed
+
   methods: {
     increment () {
       this.count += 1;
     },
-    isEven (number) {
+    isEven ( number ) {
       return number % 2 === 0;
-    }
+    },
     /* isEven ( val ) {
       return val % 2 === 0
     } */
+  },
+
+  computed: {
+    evenList () {
+      return this.numbers.filter( num => this.isEven( num ) );
+    }
   }
+
 } );
+
 app.mount( '#app' );
