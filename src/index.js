@@ -5,17 +5,17 @@ const Num = {
   template: `
   <button
     v-bind:class="getClass(number)"
-    v-on="click(number)"
+    v-on:click="click"
   >
     {{ number }}
   </button>
 `,
-  /* NOTE component를 reuse하기 위해서는 methods를 component 내부에 놓아야 된다.
-  아래의 getClass, isEven을 최상위 methods에서 Num component 내부로 옮겼다. */
+
   methods: {
-    click (number) {
-      console.log(number)
+    click () {
+      this.$emit('chosen', this.number)
     },
+    // NOTE $emit을 사용하여 parent methods의 값을 자식에게 전달했다.
     getClass ( number ) {
       return this.isEven( number ) ? 'blue' : 'red';
     },
@@ -34,18 +34,22 @@ const app = Vue.createApp( {
   template: `
     <num 
       v-for="number in numbers"
-      v-bind:number="number" 
+      v-bind:number="number"
+      v-on:chosen="addNumber"
     />
-    <!-- div 속에 있던 v-for 마저 num component 내부로 이동 -->
+    <hr />
+    <num 
+      v-for="number in numberHistory"
+      v-bind:number="number"
+    />
   `,
 
   data () {
     return {
       numbers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
+      numberHistory: []
     };
   },
-
-  // SPEC v-model
 
   computed: {
     evenList () {
@@ -54,6 +58,10 @@ const app = Vue.createApp( {
   },
 
   methods: {
+    addNumber ( number ) {
+      // console.log('number', number)
+      this.numberHistory.push(number)
+    }
   },
 
 } );
