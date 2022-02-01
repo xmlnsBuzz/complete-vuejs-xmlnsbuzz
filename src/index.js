@@ -5,12 +5,13 @@ const app = Vue.createApp( {
     <button v-on:click="increment()">Increment</button>
     <p>{{count}}</p>
     <input 
-     type="radio"
-     v-model="value"
+     type="checkbox"
+     v-model="value" 
      value="a"
     />
+    <!-- NOTE v-model을 사용하여 아래의 data() section의 value와 결함 -->
     <input 
-     type="radio"
+     type="checkbox"
      v-model="value"
      value="b"
     />
@@ -34,7 +35,7 @@ const app = Vue.createApp( {
   data () {
     return {
       count: 0,
-      value: 'a',
+      value: ['a'],
       numbers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ],
     };
   },
