@@ -4,17 +4,25 @@ const app = Vue.createApp( {
   template: `
     <button v-on:click="increment()">Increment</button>
     <p>{{count}}</p>
-    <div v-if="isEven()">
-      Even
+    <div v-for="number in numbers">
+      <div>
+      {{number}} 
+      <span v-if="isEven(number)">
+        Even
+      </span>
+      <span v-else>
+        Odd
+      </span>
+      
+      </div>
     </div>
-    <div v-else>
-      Odd
-    </div>
+
   `,
   /* NOTE increment()과 increment는 똑 같음. (괄호)를 생략할 수 있음 */
   data () {
     return {
-      count: 0
+      count: 0,
+      numbers: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
     };
   },
 
@@ -22,8 +30,8 @@ const app = Vue.createApp( {
     increment () {
       this.count += 1;
     },
-    isEven () {
-      return this.count % 2 === 0
+    isEven (number) {
+      return number % 2 === 0;
     }
     /* isEven ( val ) {
       return val % 2 === 0
