@@ -6,9 +6,9 @@ const app = Vue.createApp( {
     <p>{{count}}</p>
     <div 
       v-for="number in numbers"
-      v-bind:class="isEven(number) ? 'blue' : 'red'"
+      v-bind:class="getClass(number)"
     >
-    // SPEC v-bind with tenary operator
+    <!-- SPEC methods: section에 getClass()를 따로 정의하여 사용 -->
       <div>
       {{number}} 
       
@@ -30,6 +30,9 @@ const app = Vue.createApp( {
   // SPEC computed
 
   methods: {
+    getClass ( number ) {
+      return this.isEven( number ) ? 'blue' : 'red';
+    },
     increment () {
       this.count += 1;
     },
